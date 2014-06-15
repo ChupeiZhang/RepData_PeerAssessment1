@@ -5,7 +5,8 @@ This is R Markdown file for Assignment 1
 
 Loading the data
 
-```{r,echo=TRUE}
+
+```r
 setwd("~/Documents/my classes/Coursera/Reproducible Research/assignment 1")
 activity <- read.csv("activity.csv",colClasses=c("numeric","Date","numeric"))
 ##define the type of each variables
@@ -13,7 +14,8 @@ activity <- read.csv("activity.csv",colClasses=c("numeric","Date","numeric"))
 
 
 Mean total number of steps taken per day
-```{r,echo=TRUE}
+
+```r
 activity2 <- na.omit(activity) ##ignore NA
 datelist <- unique(activity2[,2]) ##the list of all dates
 n <- length(datelist)
@@ -25,13 +27,30 @@ for(i in 1:n){
 }
 activity_sum<-data.frame(sumsteps=steps,date=datelist)
 hist(activity_sum$sumsteps,xlab="total number of steps per day",main="total number of steps taken each day")
+```
+
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+
+```r
 mean(activity_sum[,1])
+```
+
+```
+## [1] 10766
+```
+
+```r
 median(activity_sum[,1])
+```
+
+```
+## [1] 10765
 ```
 
 
 The average daily activity pattern
-```{r,echo=TRUE}
+
+```r
 intervallist<-unique(activity2[,3]) ##the list of all time intervals taken
 m<-length(intervallist)
 aversteps=NULL
@@ -42,14 +61,31 @@ for(i in 1:m){
 }
 intervalaver<-data.frame(averagesteps=aversteps,interval=intervallist)
 plot(intervalaver$interval,intervalaver$averagesteps,type="l",main="average number of steps of the 5-min interval",xlab="interval",ylab="average steps")
+```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+
+```r
 max<-max(intervalaver$averagesteps) ##find the maximum value 
 subset(intervalaver,intervalaver$averagesteps==max)[,2]
 ```
 
+```
+## [1] 835
+```
+
 
 Imputing missing values
-```{r,echo=TRUE}
+
+```r
 nrow(activity[!complete.cases(activity),]) ## total number of rows with NA
+```
+
+```
+## [1] 2304
+```
+
+```r
 nacase<-activity[!complete.cases(activity),]
 row<-nrow(nacase)
 for(i in 1:row){
@@ -66,15 +102,32 @@ for(i in 1:l){
 }
 activitysum<-data.frame(stepsum=step,Date=datel)
 hist(activitysum$stepsum,xlab="total number of steps per day",main="total number of steps taken each day")
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+```r
 mean(activitysum[,1])
+```
+
+```
+## [1] 10766
+```
+
+```r
 median(activitysum[,1])
+```
+
+```
+## [1] 10766
 ```
 The values of steps are larger than the first part.The imputing data makes the sum of steps larger than the first one but the histogram shows the same trend.
 
 
 
 The differences in activity patterns between weekdays and weekends
-```{r,echo=TRUE}
+
+```r
 activity$weektime<-as.factor(ifelse(weekdays(activity$date) %in% c("Saturday","Sunday"),"weekend","weekday")) ##add weektime column
 weekday<-subset(activity,activity$weektime=="weekday")
 inv_1<-unique(weekday[,3]) ##the list of all time intervals taken
@@ -101,6 +154,8 @@ inv$weektime<-factor(inv$weektime)
 library(lattice)
 xyplot(inv$averagesteps~inv$interval|weektime,data=inv,layout=c(1,2),type="l")
 ```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 
 The end of the assignment
