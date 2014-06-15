@@ -65,7 +65,7 @@ for(i in 1:l){
   q<-q+1
 }
 activitysum<-data.frame(stepsum=step,Date=datel)
-hist(activitysum$stepsum,xlab="total number of steps per day",main="total number of steps taken each day")
+hist(activitysum$stepsum,xlab="total number of steps per day",main="Imputing data-total number of steps taken each day")
 mean(activitysum[,1])
 median(activitysum[,1])
 ```

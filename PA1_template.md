@@ -101,7 +101,7 @@ for(i in 1:l){
   q<-q+1
 }
 activitysum<-data.frame(stepsum=step,Date=datel)
-hist(activitysum$stepsum,xlab="total number of steps per day",main="total number of steps taken each day")
+hist(activitysum$stepsum,xlab="total number of steps per day",main="Imputing data-total number of steps taken each day")
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
